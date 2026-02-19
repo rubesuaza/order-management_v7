@@ -15,16 +15,16 @@ public final class Address {
     
     public Address(String street, String city, String zipCode, String country) {
         if (street == null || street.isBlank()) {
-            throw new IllegalArgumentException("Street cannot be null or blank");
+            throw new IllegalArgumentException("street cannot be null or blank");
         }
         if (city == null || city.isBlank()) {
-            throw new IllegalArgumentException("City cannot be null or blank");
+            throw new IllegalArgumentException("city cannot be null or blank");
         }
         if (zipCode == null || zipCode.isBlank()) {
-            throw new IllegalArgumentException("ZipCode cannot be null or blank");
+            throw new IllegalArgumentException("zipCode cannot be null or blank");
         }
         if (country == null || country.isBlank()) {
-            throw new IllegalArgumentException("Country cannot be null or blank");
+            throw new IllegalArgumentException("country cannot be null or blank");
         }
         
         this.street = street;

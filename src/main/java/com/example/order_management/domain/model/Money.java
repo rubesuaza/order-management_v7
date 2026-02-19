@@ -49,7 +49,7 @@ public final class Money {
     public Money add(Money other) {
         if (!this.currency.equals(other.currency)) {
             throw new CurrencyMismatchException(
-                String.format("Cannot add amounts with different currencies: %s and %s", 
+                String.format("Cannot add amounts with different currency: %s and %s",
                     this.currency, other.currency)
             );
         }
@@ -66,7 +66,7 @@ public final class Money {
     public Money subtract(Money other) {
         if (!this.currency.equals(other.currency)) {
             throw new CurrencyMismatchException(
-                String.format("Cannot subtract amounts with different currencies: %s and %s", 
+                String.format("Cannot subtract amounts with different currency: %s and %s",
                     this.currency, other.currency)
             );
         }

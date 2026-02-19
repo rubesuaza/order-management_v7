@@ -95,7 +95,7 @@ public class Order {
     public void markAsPaid() {
         if (totalAmount.getAmount().compareTo(MINIMUM_ORDER_VALUE) < 0) {
             throw new InvalidOrderStateException(
-                String.format("Order cannot be placed. Minimum order value is %s %s, but order total is %s",
+                String.format("Order cannot be placed. minimum order value is %s %s, but order total is %s",
                     MINIMUM_ORDER_VALUE, totalAmount.getCurrency(), totalAmount)
             );
         }
@@ -153,7 +153,7 @@ public class Order {
      * @param items the list of order items
      * @throws CurrencyMismatchException if items have different currencies
      */
-    private void validateCurrencyConsistency(List<OrderItem> items) {
+    private static void validateCurrencyConsistency(List<OrderItem> items) {
         if (items.isEmpty()) {
             return;
         }

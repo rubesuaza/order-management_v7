@@ -20,13 +20,13 @@ public class OrderItem {
             throw new IllegalArgumentException("ProductId cannot be null");
         }
         if (quantity <= 0) {
-            throw new InvalidItemException("Quantity must be strictly greater than zero");
+            throw new InvalidItemException("quantity must be strictly greater than zero");
         }
         if (unitPrice == null) {
             throw new IllegalArgumentException("UnitPrice cannot be null");
         }
         if (unitPrice.getAmount().compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidItemException("UnitPrice cannot be negative");
+            throw new InvalidItemException("unit price cannot be negative");
         }
         
         this.productId = productId;

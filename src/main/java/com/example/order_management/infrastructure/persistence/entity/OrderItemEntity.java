@@ -33,7 +33,7 @@ public class OrderItemEntity {
     @Column(name = "unit_price", nullable = false, precision = 19, scale = 2)
     private BigDecimal unitPrice;
 
-    protected OrderItemEntity() {}
+    public OrderItemEntity() {}
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }

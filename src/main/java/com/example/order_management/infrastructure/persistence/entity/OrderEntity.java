@@ -45,7 +45,7 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemEntity> items = new ArrayList<>();
 
-    protected OrderEntity() {}
+    public OrderEntity() {}
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
