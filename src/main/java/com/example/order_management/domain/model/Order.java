@@ -25,22 +25,41 @@ public class Order {
     private static final BigDecimal MINIMUM_ORDER_VALUE = new BigDecimal("10.00");
     
     public Order(UUID customerId, List<OrderItem> items) {
+        this(UUID.randomUUID(), customerId, OrderStatus.PENDING, LocalDateTime.now(), items, null);
+    }
+
+    /**
+     * Reconstitutes an Order from persistence (e.g. database).
+     * Used by infrastructure adapters to restore aggregate state.
+     */
+    public static Order fromPersistence(UUID id, UUID customerId, OrderStatus status,
+                                        LocalDateTime createdAt, List<OrderItem> items) {
+        if (id == null || customerId == null || status == null || createdAt == null || items == null) {
+            throw new IllegalArgumentException("All arguments must be non-null");
+        }
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("Order must have at least one OrderItem");
+        }
+        validateCurrencyConsistency(items);
+        Money total = calculateTotalFromItems(items);
+        return new Order(id, customerId, status, createdAt, items, total);
+    }
+
+    private Order(UUID id, UUID customerId, OrderStatus status, LocalDateTime createdAt,
+                  List<OrderItem> items, Money totalAmount) {
         if (customerId == null) {
             throw new IllegalArgumentException("CustomerId cannot be null");
         }
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Order must have at least one OrderItem");
         }
-        
-        // Validate currency consistency
         validateCurrencyConsistency(items);
-        
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.customerId = customerId;
-        this.status = OrderStatus.PENDING;
-        this.createdAt = LocalDateTime.now();
+        this.status = status;
+        this.createdAt = createdAt;
         this.items = new ArrayList<>(items);
-        this.totalAmount = calculateTotalAmount();
+        this.totalAmount = totalAmount != null ? totalAmount : calculateTotalFromItems(items);
     }
     
     public UUID getId() {
@@ -152,10 +171,8 @@ public class Order {
     
     /**
      * Calculates the total amount by summing all item totals.
-     * 
-     * @return the total amount as Money
      */
-    private Money calculateTotalAmount() {
+    private static Money calculateTotalFromItems(List<OrderItem> items) {
         Money total = new Money(BigDecimal.ZERO, items.get(0).getUnitPrice().getCurrency());
         for (OrderItem item : items) {
             total = total.add(item.getTotalPrice());
