@@ -8,9 +8,9 @@ import com.example.order_management.infrastructure.persistence.entity.OrderEntit
 import com.example.order_management.infrastructure.persistence.entity.OrderItemEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Maps between domain Order aggregate and persistence OrderEntity.
@@ -27,9 +27,9 @@ public class OrderMapper {
         entity.setCurrency(order.getTotalAmount().getCurrency());
         entity.setCreatedAt(order.getCreatedAt());
 
-        List<OrderItemEntity> itemEntities = order.getItems().stream()
+        List<OrderItemEntity> itemEntities = new ArrayList<>(order.getItems().stream()
                 .map(item -> toItemEntity(item, entity))
-                .collect(Collectors.toList());
+                .toList());
         entity.setItems(itemEntities);
         return entity;
     }
@@ -37,7 +37,7 @@ public class OrderMapper {
     public Order toDomain(OrderEntity entity) {
         List<OrderItem> items = entity.getItems().stream()
                 .map(this::toDomainItem)
-                .collect(Collectors.toList());
+                .toList();
         return Order.fromPersistence(
                 entity.getId(),
                 entity.getCustomerId(),

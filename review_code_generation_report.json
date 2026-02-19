@@ -1,0 +1,35 @@
+{
+  "status": "complete",
+  "structure_compliance": {
+    "score": 100,
+    "missing_files": [],
+    "notes": "No existe architecture/directory_structure.md; la auditoría se basó en la estructura descubierta. Proyecto Java/Gradle con capas hexagonales: application (puertos out, servicio), domain (modelo, excepciones), infrastructure (persistence, entity, mapper). Punto de entrada OrderManagementApplication.java, configuración application.yml y tests unitarios presentes."
+  },
+  "domain_compliance": {
+    "score": 95,
+    "missing_entities": [],
+    "notes": "No existe architecture/domain_definition.md. Revisión por muestreo: Order (agregado raíz) con id, customerId, status, createdAt, items, totalAmount; invariantes: mínimo 10.00, consistencia de moneda, transiciones de estado (markAsPaid, markAsShipped, markAsDelivered, cancel). OrderItem con productId, quantity, unitPrice y validaciones. OrderStatus enum (PENDING, PAID, SHIPPED, DELIVERED, CANCELLED). Value objects Money y Address presentes. Excepciones de dominio: CurrencyMismatchException, InvalidOrderStateException, InvalidItemException."
+  },
+  "test_results": {
+    "command_executed": "gradle test --no-daemon",
+    "passed": true,
+    "total_tests": 46,
+    "failures": 0,
+    "output_summary": "BUILD SUCCESSFUL. Tests: AddressTest 7, OrderApplicationServiceTest 6, OrderTest 13, OrderItemTest 6, OrderMapperTest 3, MoneyTest 11."
+  },
+  "gaps": [
+    {
+      "severity": "low",
+      "category": "structure",
+      "description": "No existe el directorio architecture/ con directory_structure.md, domain_definition.md ni tech_stack.md, por lo que la revisión no pudo contrastar contra una fuente de verdad explícita.",
+      "fix_suggestion": "Añadir archivos de definición en architecture/ para futuras revisiones automatizadas."
+    },
+    {
+      "severity": "low",
+      "category": "tooling",
+      "description": "No existe gradlew ni gradle-wrapper.jar; se usó 'gradle' del sistema.",
+      "fix_suggestion": "Ejecutar 'gradle wrapper' para generar gradlew y asegurar version y portabilidad del build."
+    }
+  ],
+  "next_recommended_action": "git_operations"
+}

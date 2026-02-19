@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Application service (use cases) for order operations.
@@ -34,9 +34,9 @@ public class OrderApplicationService {
                 .map(dto -> new OrderItem(
                         dto.productId(),
                         dto.quantity(),
-                        new Money(dto.unitPrice(), dto.currency() != null ? dto.currency() : "USD")
+                        new Money(dto.unitPrice(), Objects.requireNonNullElse(dto.currency(), "USD"))
                 ))
-                .collect(Collectors.toList());
+                .toList();
         Order order = new Order(customerId, domainItems);
         return orderRepository.save(order);
     }

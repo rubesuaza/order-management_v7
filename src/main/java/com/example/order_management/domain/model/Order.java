@@ -20,7 +20,7 @@ public class Order {
     private OrderStatus status;
     private final LocalDateTime createdAt;
     private final List<OrderItem> items;
-    private Money totalAmount;
+    private final Money totalAmount;
     
     private static final BigDecimal MINIMUM_ORDER_VALUE = new BigDecimal("10.00");
     
@@ -89,17 +89,21 @@ public class Order {
     /**
      * Marks the order as PAID.
      * Business rule: Order total must be at least 10.00 USD.
-     * 
+     *
      * @throws InvalidOrderStateException if total amount is less than minimum
      */
     public void markAsPaid() {
-        if (totalAmount.getAmount().compareTo(MINIMUM_ORDER_VALUE) < 0) {
+        if (isBelowMinimumOrderValue()) {
             throw new InvalidOrderStateException(
                 String.format("Order cannot be placed. minimum order value is %s %s, but order total is %s",
                     MINIMUM_ORDER_VALUE, totalAmount.getCurrency(), totalAmount)
             );
         }
         this.status = OrderStatus.PAID;
+    }
+
+    private boolean isBelowMinimumOrderValue() {
+        return totalAmount.getAmount().compareTo(MINIMUM_ORDER_VALUE) < 0;
     }
     
     /**
@@ -135,16 +139,20 @@ public class Order {
     /**
      * Cancels the order.
      * Business rule: Order can only be cancelled if it is PENDING or PAID.
-     * 
+     *
      * @throws InvalidOrderStateException if order is SHIPPED or DELIVERED
      */
     public void cancel() {
-        if (this.status == OrderStatus.SHIPPED || this.status == OrderStatus.DELIVERED) {
+        if (isNonCancellable()) {
             throw new InvalidOrderStateException(
                 String.format("Order cannot be cancelled. A %s order cannot be cancelled.", this.status)
             );
         }
         this.status = OrderStatus.CANCELLED;
+    }
+
+    private boolean isNonCancellable() {
+        return this.status == OrderStatus.SHIPPED || this.status == OrderStatus.DELIVERED;
     }
     
     /**
@@ -173,10 +181,9 @@ public class Order {
      * Calculates the total amount by summing all item totals.
      */
     private static Money calculateTotalFromItems(List<OrderItem> items) {
-        Money total = new Money(BigDecimal.ZERO, items.get(0).getUnitPrice().getCurrency());
-        for (OrderItem item : items) {
-            total = total.add(item.getTotalPrice());
-        }
-        return total;
+        Money zero = new Money(BigDecimal.ZERO, items.get(0).getUnitPrice().getCurrency());
+        return items.stream()
+                .map(OrderItem::getTotalPrice)
+                .reduce(zero, Money::add);
     }
 }
