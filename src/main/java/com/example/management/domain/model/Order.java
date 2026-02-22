@@ -25,6 +25,10 @@ public final class Order {
     private final Money totalAmount;
 
     private Order(OrderId id, UUID customerId, List<OrderItem> items, LocalDateTime createdAt) {
+        this(id, customerId, items, createdAt, OrderStatus.PENDING);
+    }
+
+    private Order(OrderId id, UUID customerId, List<OrderItem> items, LocalDateTime createdAt, OrderStatus status) {
         if (id == null) {
             throw new IllegalArgumentException("OrderId cannot be null");
         }
@@ -34,16 +38,27 @@ public final class Order {
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Order must have at least one OrderItem");
         }
+        if (status == null) {
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         this.id = id;
         this.customerId = customerId;
         this.items = new ArrayList<>(items);
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
-        this.status = OrderStatus.PENDING;
+        this.status = status;
         this.totalAmount = calculateTotal(items);
     }
 
     public static Order create(OrderId id, UUID customerId, List<OrderItem> items) {
         return new Order(id, customerId, items, LocalDateTime.now());
+    }
+
+    /**
+     * Reconstitutes an Order from persistence. Used when loading from database.
+     */
+    public static Order reconstitute(OrderId id, UUID customerId, List<OrderItem> items,
+                                    LocalDateTime createdAt, OrderStatus status) {
+        return new Order(id, customerId, items, createdAt, status);
     }
 
     private static Money calculateTotal(List<OrderItem> items) {
