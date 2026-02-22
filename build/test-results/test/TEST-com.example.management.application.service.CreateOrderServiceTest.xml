@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.management.application.service.CreateOrderServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:19:55" hostname="RubenS" time="2.048">
+<testsuite name="com.example.management.application.service.CreateOrderServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:25:33" hostname="RubenS" time="2.077">
   <properties/>
-  <testcase name="shouldGenerateNewOrderIdWhenCreating()" classname="com.example.management.application.service.CreateOrderServiceTest" time="1.998"/>
-  <testcase name="shouldCreateOrderAndSaveToRepository()" classname="com.example.management.application.service.CreateOrderServiceTest" time="0.029"/>
-  <testcase name="shouldCreateOrderWithMultipleItems()" classname="com.example.management.application.service.CreateOrderServiceTest" time="0.012"/>
+  <testcase name="shouldGenerateNewOrderIdWhenCreating()" classname="com.example.management.application.service.CreateOrderServiceTest" time="2.021"/>
+  <testcase name="shouldCreateOrderAndSaveToRepository()" classname="com.example.management.application.service.CreateOrderServiceTest" time="0.032"/>
+  <testcase name="shouldCreateOrderWithMultipleItems()" classname="com.example.management.application.service.CreateOrderServiceTest" time="0.011"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
