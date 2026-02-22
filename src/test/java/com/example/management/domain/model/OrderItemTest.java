@@ -43,7 +43,7 @@ class OrderItemTest {
     void shouldThrowWhenUnitPriceIsNegative() {
         assertThatThrownBy(() -> new OrderItem(UUID.randomUUID(), 1, new Money(new BigDecimal("-5.00"))))
                 .isInstanceOf(InvalidItemException.class)
-                .hasMessageContaining("price");
+                .hasMessageContaining("unitPrice");
     }
 
     @Test

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.management.domain.model.MoneyTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:07:19" hostname="RubenS" time="0.054">
+  <properties/>
+  <testcase name="shouldMultiplyMoneyByInteger()" classname="com.example.management.domain.model.MoneyTest" time="0.006"/>
+  <testcase name="shouldSubtractMoneyWithSameCurrency()" classname="com.example.management.domain.model.MoneyTest" time="0.002"/>
+  <testcase name="shouldThrowWhenAddingDifferentCurrencies()" classname="com.example.management.domain.model.MoneyTest" time="0.013"/>
+  <testcase name="shouldThrowWhenComparingDifferentCurrencies()" classname="com.example.management.domain.model.MoneyTest" time="0.003"/>
+  <testcase name="shouldCompareMoneyValues()" classname="com.example.management.domain.model.MoneyTest" time="0.003"/>
+  <testcase name="shouldAddMoneyWithSameCurrency()" classname="com.example.management.domain.model.MoneyTest" time="0.002"/>
+  <testcase name="shouldCreateMoneyWithDefaultCurrency()" classname="com.example.management.domain.model.MoneyTest" time="0.002"/>
+  <testcase name="shouldThrowWhenSubtractingDifferentCurrencies()" classname="com.example.management.domain.model.MoneyTest" time="0.003"/>
+  <testcase name="shouldCreateMoneyWithExplicitCurrency()" classname="com.example.management.domain.model.MoneyTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

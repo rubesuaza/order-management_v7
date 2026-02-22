@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - OrderItemTest</title>
+<title>Test results - PayOrderServiceTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>OrderItemTest</h1>
+<h1>PayOrderServiceTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/com.example.management.domain.model.html">com.example.management.domain.model</a> &gt; OrderItemTest</div>
+<a href="../packages/com.example.management.application.service.html">com.example.management.application.service</a> &gt; PayOrderServiceTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">6</div>
+<div class="counter">4</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.015s</div>
+<div class="counter">0.036s</div>
 <p>duration</p>
 </div>
 </td>
@@ -75,33 +75,23 @@
 </tr>
 </thead>
 <tr>
-<td class="success">shouldAcceptZeroUnitPrice()</td>
-<td class="success">0.002s</td>
+<td class="success">shouldMarkOrderAsPaidAndSave()</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">shouldCalculateLineTotalCorrectly()</td>
-<td class="success">0.002s</td>
+<td class="success">shouldThrowInvalidOrderStateExceptionWhenOrderAlreadyPaid()</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">shouldCreateValidOrderItem()</td>
-<td class="success">0.002s</td>
+<td class="success">shouldThrowInvalidOrderStateExceptionWhenOrderTotalBelowMinimum()</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">shouldThrowWhenQuantityIsNegative()</td>
-<td class="success">0.003s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldThrowWhenQuantityIsZero()</td>
-<td class="success">0.003s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldThrowWhenUnitPriceIsNegative()</td>
-<td class="success">0.003s</td>
+<td class="success">shouldThrowOrderNotFoundExceptionWhenOrderDoesNotExist()</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 </table>
