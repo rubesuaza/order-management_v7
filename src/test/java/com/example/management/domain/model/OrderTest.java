@@ -66,7 +66,7 @@ class OrderTest {
 
         assertThatThrownBy(order::markAsPaid)
                 .isInstanceOf(InvalidOrderStateException.class)
-                .hasMessageContaining("10.00");
+                .hasMessageContaining(MIN_ORDER_AMOUNT.getAmount().toString());
     }
 
     @Test

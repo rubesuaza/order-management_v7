@@ -1,5 +1,6 @@
 package com.example.management.application.service;
 
+import com.example.management.application.port.in.CreateOrderUseCase;
 import com.example.management.application.port.out.OrderRepository;
 import com.example.management.domain.model.Money;
 import com.example.management.domain.model.Order;
@@ -10,13 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Application service for creating orders.
  */
 @Service
-public class CreateOrderService {
+public class CreateOrderService implements CreateOrderUseCase {
 
     private final OrderRepository orderRepository;
 
@@ -24,14 +24,13 @@ public class CreateOrderService {
         this.orderRepository = orderRepository;
     }
 
+    @Override
     @Transactional
     public Order create(UUID customerId, List<OrderItemInput> items) {
         List<OrderItem> domainItems = items.stream()
                 .map(i -> new OrderItem(i.productId(), i.quantity(), new Money(i.unitPrice())))
-                .collect(Collectors.toList());
+                .toList();
         Order order = Order.create(OrderId.generate(), customerId, domainItems);
         return orderRepository.save(order);
     }
-
-    public record OrderItemInput(UUID productId, int quantity, java.math.BigDecimal unitPrice) {}
 }

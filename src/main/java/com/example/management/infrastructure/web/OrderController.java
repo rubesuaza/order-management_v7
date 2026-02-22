@@ -1,8 +1,9 @@
 package com.example.management.infrastructure.web;
 
-import com.example.management.application.service.CreateOrderService;
-import com.example.management.application.service.GetOrderService;
-import com.example.management.application.service.PayOrderService;
+import com.example.management.application.exception.OrderNotFoundException;
+import com.example.management.application.port.in.CreateOrderUseCase;
+import com.example.management.application.port.in.GetOrderUseCase;
+import com.example.management.application.port.in.PayOrderUseCase;
 import com.example.management.domain.exception.InvalidOrderStateException;
 import com.example.management.domain.model.Order;
 import com.example.management.domain.model.OrderItem;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,24 +24,24 @@ import java.util.UUID;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
 
-    private final CreateOrderService createOrderService;
-    private final GetOrderService getOrderService;
-    private final PayOrderService payOrderService;
+    private final CreateOrderUseCase createOrderUseCase;
+    private final GetOrderUseCase getOrderUseCase;
+    private final PayOrderUseCase payOrderUseCase;
 
-    public OrderController(CreateOrderService createOrderService,
-                           GetOrderService getOrderService,
-                           PayOrderService payOrderService) {
-        this.createOrderService = createOrderService;
-        this.getOrderService = getOrderService;
-        this.payOrderService = payOrderService;
+    public OrderController(CreateOrderUseCase createOrderUseCase,
+                           GetOrderUseCase getOrderUseCase,
+                           PayOrderUseCase payOrderUseCase) {
+        this.createOrderUseCase = createOrderUseCase;
+        this.getOrderUseCase = getOrderUseCase;
+        this.payOrderUseCase = payOrderUseCase;
     }
 
     @PostMapping
     public ResponseEntity<CreateOrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request) {
-        List<CreateOrderService.OrderItemInput> items = request.items().stream()
-                .map(i -> new CreateOrderService.OrderItemInput(i.productId(), i.quantity(), i.unitPrice()))
+        List<CreateOrderUseCase.OrderItemInput> items = request.items().stream()
+                .map(i -> new CreateOrderUseCase.OrderItemInput(i.productId(), i.quantity(), i.unitPrice()))
                 .toList();
-        Order order = createOrderService.create(request.customerId(), items);
+        Order order = createOrderUseCase.create(request.customerId(), items);
         CreateOrderResponse response = new CreateOrderResponse(
                 order.getId().getValue(),
                 order.getStatus().name(),
@@ -53,7 +53,7 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderResponse> getOrder(@PathVariable UUID orderId) {
-        return getOrderService.getById(orderId)
+        return getOrderUseCase.getById(orderId)
                 .map(this::toOrderResponse)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -62,13 +62,13 @@ public class OrderController {
     @PostMapping("/{orderId}/pay")
     public ResponseEntity<?> payOrder(@PathVariable UUID orderId) {
         try {
-            Order order = payOrderService.pay(orderId);
+            Order order = payOrderUseCase.pay(orderId);
             PayOrderResponse response = new PayOrderResponse(
                     order.getId().getValue(),
                     order.getStatus().name()
             );
             return ResponseEntity.ok(response);
-        } catch (PayOrderService.OrderNotFoundException e) {
+        } catch (OrderNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (InvalidOrderStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(e.getMessage()));

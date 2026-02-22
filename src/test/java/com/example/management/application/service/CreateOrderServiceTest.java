@@ -1,5 +1,6 @@
 package com.example.management.application.service;
 
+import com.example.management.application.port.in.CreateOrderUseCase;
 import com.example.management.application.port.out.OrderRepository;
 import com.example.management.domain.model.Order;
 import com.example.management.domain.model.OrderId;
@@ -38,8 +39,8 @@ class CreateOrderServiceTest {
         // Arrange
         UUID customerId = UUID.randomUUID();
         UUID productId = UUID.randomUUID();
-        List<CreateOrderService.OrderItemInput> items = List.of(
-                new CreateOrderService.OrderItemInput(productId, 2, new BigDecimal("10.00"))
+        List<CreateOrderUseCase.OrderItemInput> items = List.of(
+                new CreateOrderUseCase.OrderItemInput(productId, 2, new BigDecimal("10.00"))
         );
 
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
@@ -67,9 +68,9 @@ class CreateOrderServiceTest {
         UUID customerId = UUID.randomUUID();
         UUID productId1 = UUID.randomUUID();
         UUID productId2 = UUID.randomUUID();
-        List<CreateOrderService.OrderItemInput> items = List.of(
-                new CreateOrderService.OrderItemInput(productId1, 2, new BigDecimal("5.00")),
-                new CreateOrderService.OrderItemInput(productId2, 1, new BigDecimal("10.00"))
+        List<CreateOrderUseCase.OrderItemInput> items = List.of(
+                new CreateOrderUseCase.OrderItemInput(productId1, 2, new BigDecimal("5.00")),
+                new CreateOrderUseCase.OrderItemInput(productId2, 1, new BigDecimal("10.00"))
         );
 
         when(orderRepository.save(any(Order.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -86,8 +87,8 @@ class CreateOrderServiceTest {
     void shouldGenerateNewOrderIdWhenCreating() {
         // Arrange
         UUID customerId = UUID.randomUUID();
-        List<CreateOrderService.OrderItemInput> items = List.of(
-                new CreateOrderService.OrderItemInput(UUID.randomUUID(), 1, new BigDecimal("15.00"))
+        List<CreateOrderUseCase.OrderItemInput> items = List.of(
+                new CreateOrderUseCase.OrderItemInput(UUID.randomUUID(), 1, new BigDecimal("15.00"))
         );
 
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);

@@ -1,5 +1,6 @@
 package com.example.management.application.service;
 
+import com.example.management.application.exception.OrderNotFoundException;
 import com.example.management.application.port.out.OrderRepository;
 import com.example.management.domain.exception.InvalidOrderStateException;
 import com.example.management.domain.model.*;
@@ -61,7 +62,7 @@ class PayOrderServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> payOrderService.pay(orderId))
-                .isInstanceOf(PayOrderService.OrderNotFoundException.class)
+                .isInstanceOf(OrderNotFoundException.class)
                 .hasMessageContaining("Order not found")
                 .hasMessageContaining(orderId.toString());
     }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.management.domain.model.OrderTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:07:19" hostname="RubenS" time="0.054">
+<testsuite name="com.example.management.domain.model.OrderTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:13:20" hostname="RubenS" time="0.062">
   <properties/>
   <testcase name="shouldThrowWhenShippingPendingOrder()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
-  <testcase name="shouldThrowWhenMarkingAsPaidWithTotalBelowMinimum()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
-  <testcase name="shouldThrowWhenCancellingAlreadyCancelledOrder()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
+  <testcase name="shouldThrowWhenMarkingAsPaidWithTotalBelowMinimum()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
+  <testcase name="shouldThrowWhenCancellingAlreadyCancelledOrder()" classname="com.example.management.domain.model.OrderTest" time="0.009"/>
   <testcase name="shouldCreateOrderWithAtLeastOneItem()" classname="com.example.management.domain.model.OrderTest" time="0.005"/>
-  <testcase name="shouldMarkAsPaidWhenTotalMeetsMinimum()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
-  <testcase name="shouldCalculateTotalFromMultipleItems()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
-  <testcase name="shouldThrowWhenCancellingShippedOrder()" classname="com.example.management.domain.model.OrderTest" time="0.005"/>
-  <testcase name="shouldThrowWhenCreatingOrderWithEmptyItems()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
-  <testcase name="shouldCancelOrderWhenPending()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
-  <testcase name="shouldCancelOrderWhenPaid()" classname="com.example.management.domain.model.OrderTest" time="0.001"/>
-  <testcase name="shouldThrowWhenCreatingOrderWithNoItems()" classname="com.example.management.domain.model.OrderTest" time="0.004"/>
+  <testcase name="shouldMarkAsPaidWhenTotalMeetsMinimum()" classname="com.example.management.domain.model.OrderTest" time="0.004"/>
+  <testcase name="shouldCalculateTotalFromMultipleItems()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
+  <testcase name="shouldThrowWhenCancellingShippedOrder()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
+  <testcase name="shouldThrowWhenCreatingOrderWithEmptyItems()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
+  <testcase name="shouldCancelOrderWhenPending()" classname="com.example.management.domain.model.OrderTest" time="0.004"/>
+  <testcase name="shouldCancelOrderWhenPaid()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
+  <testcase name="shouldThrowWhenCreatingOrderWithNoItems()" classname="com.example.management.domain.model.OrderTest" time="0.003"/>
   <testcase name="shouldShipOrderWhenPaid()" classname="com.example.management.domain.model.OrderTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

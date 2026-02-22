@@ -62,47 +62,61 @@ public final class Order {
     }
 
     private static Money calculateTotal(List<OrderItem> items) {
-        Money total = null;
-        for (OrderItem item : items) {
-            Money lineTotal = item.getLineTotal();
-            if (total == null) {
-                total = lineTotal;
-            } else {
-                total = total.add(lineTotal);
-            }
-        }
-        return total;
+        return items.stream()
+                .map(OrderItem::getLineTotal)
+                .reduce(Money::add)
+                .orElseThrow(() -> new IllegalStateException("Items list cannot be empty"));
     }
 
     public void markAsPaid() {
-        if (status != OrderStatus.PENDING) {
+        if (!canBeMarkedAsPaid()) {
             throw new InvalidOrderStateException(
                     "Order can only be marked as PAID when in PENDING status. Current: " + status);
         }
-        if (!totalAmount.isGreaterThanOrEqual(MINIMUM_ORDER_AMOUNT)) {
+        if (!meetsMinimumOrderAmount()) {
             throw new InvalidOrderStateException(
                     "Order total must be at least 10.00 USD to be placed. Current total: " + totalAmount.getAmount());
         }
         this.status = OrderStatus.PAID;
     }
 
+    private boolean canBeMarkedAsPaid() {
+        return status == OrderStatus.PENDING;
+    }
+
+    private boolean meetsMinimumOrderAmount() {
+        return totalAmount.isGreaterThanOrEqual(MINIMUM_ORDER_AMOUNT);
+    }
+
     public void ship() {
-        if (status != OrderStatus.PAID) {
+        if (!canBeShipped()) {
             throw new InvalidOrderStateException(
                     "Order can only be SHIPPED when in PAID status. Current: " + status);
         }
         this.status = OrderStatus.SHIPPED;
     }
 
+    private boolean canBeShipped() {
+        return status == OrderStatus.PAID;
+    }
+
     public void cancel() {
-        if (status == OrderStatus.SHIPPED || status == OrderStatus.DELIVERED) {
+        if (isAlreadyShippedOrDelivered()) {
             throw new InvalidOrderStateException(
                     "Order cannot be cancelled when already SHIPPED or DELIVERED. Current: " + status);
         }
-        if (status == OrderStatus.CANCELLED) {
+        if (isAlreadyCancelled()) {
             throw new InvalidOrderStateException("Order is already CANCELLED");
         }
         this.status = OrderStatus.CANCELLED;
+    }
+
+    private boolean isAlreadyShippedOrDelivered() {
+        return status == OrderStatus.SHIPPED || status == OrderStatus.DELIVERED;
+    }
+
+    private boolean isAlreadyCancelled() {
+        return status == OrderStatus.CANCELLED;
     }
 
     public OrderId getId() {

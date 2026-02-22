@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.management.application.service.PayOrderServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:07:19" hostname="RubenS" time="0.043">
+<testsuite name="com.example.management.application.service.PayOrderServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:13:20" hostname="RubenS" time="0.047">
   <properties/>
-  <testcase name="shouldMarkOrderAsPaidAndSave()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.011"/>
-  <testcase name="shouldThrowInvalidOrderStateExceptionWhenOrderTotalBelowMinimum()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.009"/>
-  <testcase name="shouldThrowInvalidOrderStateExceptionWhenOrderAlreadyPaid()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.008"/>
-  <testcase name="shouldThrowOrderNotFoundExceptionWhenOrderDoesNotExist()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.008"/>
+  <testcase name="shouldMarkOrderAsPaidAndSave()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.012"/>
+  <testcase name="shouldThrowInvalidOrderStateExceptionWhenOrderTotalBelowMinimum()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.01"/>
+  <testcase name="shouldThrowInvalidOrderStateExceptionWhenOrderAlreadyPaid()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.007"/>
+  <testcase name="shouldThrowOrderNotFoundExceptionWhenOrderDoesNotExist()" classname="com.example.management.application.service.PayOrderServiceTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

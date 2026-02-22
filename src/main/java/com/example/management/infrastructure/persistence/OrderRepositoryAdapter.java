@@ -27,7 +27,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     @Override
     public Order save(Order order) {
-        OrderJpaEntity entity = jpaRepository.findById(order.getId().getValue())
+        OrderJpaEntity entity = jpaRepository.findByIdWithItems(order.getId().getValue())
                 .map(existing -> mapper.updateJpaEntity(existing, order))
                 .orElseGet(() -> mapper.toJpaEntity(order));
         OrderJpaEntity saved = jpaRepository.save(entity);
@@ -36,7 +36,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     @Override
     public Optional<Order> findById(OrderId orderId) {
-        return jpaRepository.findById(orderId.getValue())
+        return jpaRepository.findByIdWithItems(orderId.getValue())
                 .map(mapper::toDomain);
     }
 }
