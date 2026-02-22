@@ -3,6 +3,7 @@ package com.example.management.application.service;
 import com.example.management.application.exception.OrderNotFoundException;
 import com.example.management.application.port.in.PayOrderUseCase;
 import com.example.management.application.port.out.OrderRepository;
+import com.example.management.application.port.out.dto.OrderOutputDTO;
 import com.example.management.domain.model.Order;
 import com.example.management.domain.model.OrderId;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,11 @@ public class PayOrderService implements PayOrderUseCase {
 
     @Override
     @Transactional
-    public Order pay(UUID orderId) {
+    public OrderOutputDTO pay(UUID orderId) {
         Order order = orderRepository.findById(new OrderId(orderId))
                 .orElseThrow(() -> new OrderNotFoundException("Order not found: " + orderId));
         order.markAsPaid();
-        return orderRepository.save(order);
+        Order saved = orderRepository.save(order);
+        return OrderToOutputMapper.toOutputDTO(saved);
     }
 }

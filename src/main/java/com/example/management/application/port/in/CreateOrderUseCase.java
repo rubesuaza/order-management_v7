@@ -1,8 +1,8 @@
 package com.example.management.application.port.in;
 
-import com.example.management.domain.model.Order;
+import com.example.management.application.port.out.dto.OrderOutputDTO;
+import com.example.management.application.port.in.command.OrderItemInput;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,7 +11,5 @@ import java.util.UUID;
  */
 public interface CreateOrderUseCase {
 
-    Order create(UUID customerId, List<OrderItemInput> items);
-
-    record OrderItemInput(UUID productId, int quantity, BigDecimal unitPrice) {}
+    OrderOutputDTO create(UUID customerId, List<OrderItemInput> items);
 }

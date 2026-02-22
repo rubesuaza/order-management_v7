@@ -1,6 +1,6 @@
 package com.example.management.application.port.in;
 
-import com.example.management.domain.model.Order;
+import com.example.management.application.port.out.dto.OrderOutputDTO;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,5 +10,5 @@ import java.util.UUID;
  */
 public interface GetOrderUseCase {
 
-    Optional<Order> getById(UUID orderId);
+    Optional<OrderOutputDTO> getById(UUID orderId);
 }

@@ -4,9 +4,9 @@ import com.example.management.application.exception.OrderNotFoundException;
 import com.example.management.application.port.in.CreateOrderUseCase;
 import com.example.management.application.port.in.GetOrderUseCase;
 import com.example.management.application.port.in.PayOrderUseCase;
+import com.example.management.application.port.in.command.OrderItemInput;
+import com.example.management.application.port.out.dto.OrderOutputDTO;
 import com.example.management.domain.exception.InvalidOrderStateException;
-import com.example.management.domain.model.Order;
-import com.example.management.domain.model.OrderItem;
 import com.example.management.infrastructure.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,15 +38,15 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<CreateOrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request) {
-        List<CreateOrderUseCase.OrderItemInput> items = request.items().stream()
-                .map(i -> new CreateOrderUseCase.OrderItemInput(i.productId(), i.quantity(), i.unitPrice()))
+        List<OrderItemInput> items = request.items().stream()
+                .map(i -> new OrderItemInput(i.productId(), i.quantity(), i.unitPrice()))
                 .toList();
-        Order order = createOrderUseCase.create(request.customerId(), items);
+        OrderOutputDTO orderOutput = createOrderUseCase.create(request.customerId(), items);
         CreateOrderResponse response = new CreateOrderResponse(
-                order.getId().getValue(),
-                order.getStatus().name(),
-                order.getTotalAmount().getAmount(),
-                order.getCreatedAt()
+                orderOutput.orderId(),
+                orderOutput.status(),
+                orderOutput.totalAmount(),
+                orderOutput.createdAt()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -62,10 +62,10 @@ public class OrderController {
     @PostMapping("/{orderId}/pay")
     public ResponseEntity<?> payOrder(@PathVariable UUID orderId) {
         try {
-            Order order = payOrderUseCase.pay(orderId);
+            OrderOutputDTO orderOutput = payOrderUseCase.pay(orderId);
             PayOrderResponse response = new PayOrderResponse(
-                    order.getId().getValue(),
-                    order.getStatus().name()
+                    orderOutput.orderId(),
+                    orderOutput.status()
             );
             return ResponseEntity.ok(response);
         } catch (OrderNotFoundException e) {
@@ -75,22 +75,22 @@ public class OrderController {
         }
     }
 
-    private OrderResponse toOrderResponse(Order order) {
-        List<OrderItemResponse> items = order.getItems().stream()
+    private OrderResponse toOrderResponse(OrderOutputDTO orderOutput) {
+        List<OrderItemResponse> items = orderOutput.items().stream()
                 .map(item -> new OrderItemResponse(
-                        item.getProductId(),
-                        item.getQuantity(),
-                        item.getUnitPrice().getAmount()
+                        item.productId(),
+                        item.quantity(),
+                        item.unitPrice()
                 ))
                 .toList();
         return new OrderResponse(
-                order.getId().getValue(),
-                order.getCustomerId(),
-                order.getStatus().name(),
+                orderOutput.orderId(),
+                orderOutput.customerId(),
+                orderOutput.status(),
                 items,
-                order.getTotalAmount().getAmount(),
-                order.getTotalAmount().getCurrency(),
-                order.getCreatedAt()
+                orderOutput.totalAmount(),
+                orderOutput.currency(),
+                orderOutput.createdAt()
         );
     }
 

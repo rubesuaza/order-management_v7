@@ -39,11 +39,11 @@ class GetOrderServiceTest {
         when(orderRepository.findById(new OrderId(orderId))).thenReturn(Optional.of(order));
 
         // Act
-        Optional<Order> result = getOrderService.getById(orderId);
+        var result = getOrderService.getById(orderId);
 
         // Assert
         assertThat(result).isPresent();
-        assertThat(result.get().getId().getValue()).isEqualTo(orderId);
+        assertThat(result.get().orderId()).isEqualTo(orderId);
         verify(orderRepository).findById(new OrderId(orderId));
     }
 
@@ -54,7 +54,7 @@ class GetOrderServiceTest {
         when(orderRepository.findById(new OrderId(orderId))).thenReturn(Optional.empty());
 
         // Act
-        Optional<Order> result = getOrderService.getById(orderId);
+        var result = getOrderService.getById(orderId);
 
         // Assert
         assertThat(result).isEmpty();

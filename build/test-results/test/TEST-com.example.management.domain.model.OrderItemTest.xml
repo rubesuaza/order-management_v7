@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.management.domain.model.OrderItemTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:13:20" hostname="RubenS" time="0.023">
+<testsuite name="com.example.management.domain.model.OrderItemTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:19:57" hostname="RubenS" time="0.028">
   <properties/>
-  <testcase name="shouldThrowWhenQuantityIsZero()" classname="com.example.management.domain.model.OrderItemTest" time="0.003"/>
-  <testcase name="shouldCalculateLineTotalCorrectly()" classname="com.example.management.domain.model.OrderItemTest" time="0.002"/>
+  <testcase name="shouldThrowWhenQuantityIsZero()" classname="com.example.management.domain.model.OrderItemTest" time="0.005"/>
+  <testcase name="shouldCalculateLineTotalCorrectly()" classname="com.example.management.domain.model.OrderItemTest" time="0.001"/>
   <testcase name="shouldCreateValidOrderItem()" classname="com.example.management.domain.model.OrderItemTest" time="0.002"/>
-  <testcase name="shouldAcceptZeroUnitPrice()" classname="com.example.management.domain.model.OrderItemTest" time="0.002"/>
-  <testcase name="shouldThrowWhenQuantityIsNegative()" classname="com.example.management.domain.model.OrderItemTest" time="0.003"/>
-  <testcase name="shouldThrowWhenUnitPriceIsNegative()" classname="com.example.management.domain.model.OrderItemTest" time="0.002"/>
+  <testcase name="shouldAcceptZeroUnitPrice()" classname="com.example.management.domain.model.OrderItemTest" time="0.001"/>
+  <testcase name="shouldThrowWhenQuantityIsNegative()" classname="com.example.management.domain.model.OrderItemTest" time="0.005"/>
+  <testcase name="shouldThrowWhenUnitPriceIsNegative()" classname="com.example.management.domain.model.OrderItemTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

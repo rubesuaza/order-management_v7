@@ -45,10 +45,10 @@ class PayOrderServiceTest {
         when(orderRepository.save(any(Order.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
-        Order result = payOrderService.pay(orderId);
+        var result = payOrderService.pay(orderId);
 
         // Assert
-        assertThat(result.getStatus()).isEqualTo(OrderStatus.PAID);
+        assertThat(result.status()).isEqualTo("PAID");
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
         verify(orderRepository).save(orderCaptor.capture());
         assertThat(orderCaptor.getValue().getStatus()).isEqualTo(OrderStatus.PAID);

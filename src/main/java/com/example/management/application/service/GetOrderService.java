@@ -2,7 +2,7 @@ package com.example.management.application.service;
 
 import com.example.management.application.port.in.GetOrderUseCase;
 import com.example.management.application.port.out.OrderRepository;
-import com.example.management.domain.model.Order;
+import com.example.management.application.port.out.dto.OrderOutputDTO;
 import com.example.management.domain.model.OrderId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,8 @@ public class GetOrderService implements GetOrderUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Order> getById(UUID orderId) {
-        return orderRepository.findById(new OrderId(orderId));
+    public Optional<OrderOutputDTO> getById(UUID orderId) {
+        return orderRepository.findById(new OrderId(orderId))
+                .map(OrderToOutputMapper::toOutputDTO);
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.management.domain.model.OrderIdTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:13:20" hostname="RubenS" time="0.016">
+<testsuite name="com.example.management.domain.model.OrderIdTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-02-22T17:19:57" hostname="RubenS" time="0.017">
   <properties/>
   <testcase name="shouldCreateOrderIdFromUuid()" classname="com.example.management.domain.model.OrderIdTest" time="0.002"/>
   <testcase name="shouldGenerateNewOrderId()" classname="com.example.management.domain.model.OrderIdTest" time="0.002"/>
   <testcase name="shouldBeEqualWhenSameValue()" classname="com.example.management.domain.model.OrderIdTest" time="0.002"/>
-  <testcase name="shouldThrowWhenUuidIsNull()" classname="com.example.management.domain.model.OrderIdTest" time="0.004"/>
+  <testcase name="shouldThrowWhenUuidIsNull()" classname="com.example.management.domain.model.OrderIdTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
